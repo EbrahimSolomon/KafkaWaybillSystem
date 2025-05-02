@@ -1,0 +1,12 @@
+﻿<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <h3 class="text-center mt-5">
+                This application is made with ❤️ by <strong>Ebrahim Solomon</strong>
+            </h3>
+        </LayoutView>
+    </NotFound>
+</Router>

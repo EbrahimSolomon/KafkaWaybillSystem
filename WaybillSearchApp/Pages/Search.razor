@@ -1,0 +1,57 @@
+@using WaybillSearchApp.Interfaces
+@using WaybillSearchApp.Models
+
+@page "/search"
+@inject IWaybillService WaybillService
+
+<h3>Search Waybill</h3>
+
+<input @bind="waybillNumber" @bind:event="oninput" placeholder="Enter waybill number..." class="form-control" />
+<button class="btn btn-primary mt-2" @onclick="PerformSearch">Search</button>
+
+@if (waybill != null)
+{
+    <h4 class="mt-4">Waybill Info</h4>
+    <ul>
+        <li><b>Service:</b> @waybill.ServiceType</li>
+        <li><b>Sender:</b> @waybill.SenderSuburb (@waybill.SenderPostalCode)</li>
+        <li><b>Recipient:</b> @waybill.RecipientSuburb (@waybill.RecipientPostalCode)</li>
+    </ul>
+
+    <h5>Parcels</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Parcel No</th><th>Length</th><th>Breadth</th><th>Height</th><th>Mass</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in waybill.Parcels)
+            {
+                <tr>
+                    <td>@p.ParcelNumber</td>
+                    <td>@p.Length</td>
+                    <td>@p.Breadth</td>
+                    <td>@p.Height</td>
+                    <td>@p.Mass</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (searched)
+{
+    <p class="text-danger">Waybill not found.</p>
+}
+
+@code {
+    private string waybillNumber = string.Empty;
+    private Waybill? waybill;
+    private bool searched = false;
+
+    private async Task PerformSearch()
+    {
+        searched = true;
+        waybill = await WaybillService.GetWaybillByNumberAsync(waybillNumber);
+    }
+}

@@ -1,0 +1,49 @@
+@inherits LayoutComponentBase
+
+<PageTitle>WaybillSearchApp</PageTitle>
+
+<div class="page">
+    <div class="sidebar bg-dark">
+        <NavMenu />
+    </div>
+
+    <main class="main">
+        <div class="top-row px-4">
+            <a href="https://github.com/EbrahimSolomon/" target="_blank">The Link</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+<style>
+    .page {
+        display: flex;
+        height: 100vh;
+    }
+
+    .sidebar {
+        width: 250px;
+        background-color: #343a40;
+        color: white;
+        overflow-y: auto;
+    }
+
+    .main {
+        flex: 1;
+        overflow-y: auto;
+        background-color: #f8f9fa;
+    }
+
+    .top-row {
+        background-color: #e9ecef;
+        padding: 1rem;
+        font-weight: bold;
+    }
+
+    a {
+        color: #007bff;
+    }
+</style>

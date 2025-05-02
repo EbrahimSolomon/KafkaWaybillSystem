@@ -1,0 +1,65 @@
+﻿@page "/about"
+
+<h1>📨 Kafka Waybill Import System</h1>
+
+<h2>🧾 Overview</h2>
+<p>This assessment includes 3 applications:</p>
+<ul>
+    <li>🚀 <strong>Application 1 - FileProcessor</strong>: Monitors the <code>Incoming</code> folder, reads <code>.txt</code> files line by line, and pushes content to Kafka.</li>
+    <li>📥 <strong>Application 2 - MessageConsumer</strong>: Listens to Kafka and inserts Waybills and Parcels into a PostgreSQL database.</li>
+    <li>🔍 <strong>Application 3 - WaybillSearchApp</strong>: A Blazor Server app to search and manage waybill and parcel data.</li>
+</ul>
+
+<h2>🔧 Prerequisites</h2>
+<ul>
+    <li>🟦 .NET 8 SDK</li>
+    <li>🐘 PostgreSQL</li>
+    <li>🐳 Apache Kafka & Zookeeper</li>
+    <li>💾 EF Core Tools</li>
+</ul>
+
+<h2>⚙️ Setup</h2>
+<ol>
+    <li><strong>Start Kafka and Zookeeper:</strong><br />
+    <code>zookeeper-server-start.bat config\zookeeper.properties</code><br />
+    <code>kafka-server-start.bat config\server.properties</code></li>
+
+    <li><strong>Create Kafka Topic:</strong><br />
+    <code>kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic file-events</code></li>
+
+    <li><strong>Configure <code>appsettings.json</code></strong> in each app to match your environment.</li>
+
+    <li><strong>Run EF Migrations:</strong><br />
+    <code>dotnet ef database update</code></li>
+</ol>
+
+<h2>📁 Folder Structure</h2>
+<ul>
+    <li>📂 FileProcessor</li>
+    <li>📂 MessageConsumer</li>
+    <li>📂 WaybillSearchApp</li>
+</ul>
+
+<h2>▶️ How to Run</h2>
+<h4>FileProcessor</h4>
+<pre><code>cd FileProcessor
+dotnet run</code></pre>
+
+<h4>MessageConsumer</h4>
+<pre><code>cd MessageConsumer
+dotnet run</code></pre>
+
+<h4>WaybillSearchApp</h4>
+<pre><code>cd WaybillSearchApp
+dotnet run</code></pre>
+
+<p>Access at: <code>http://localhost:&lt;port&gt;/</code></p>
+
+<h2>📝 Notes</h2>
+<ul>
+    <li>New files dropped into the <code>Incoming</code> folder will be processed continuously.</li>
+    <li>Waybills are upserted and each parcel is uniquely tied to one waybill.</li>
+</ul>
+
+<h2>👨‍💻 Author</h2>
+<p><strong>Ebrahim Solomon</strong></p>
